@@ -58,7 +58,7 @@ export type IAgentReasoning = {
   sourceDocuments?: any[];
   instructions?: string;
   nextAgent?: string;
-}
+};
 
 export type FileUpload = Omit<FilePreview, 'preview'>;
 
@@ -274,7 +274,13 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     setLocalStorageChatflow(props.chatflowid, chatId(), { chatHistory: allMessage });
   };
 
-  const updateLastMessage = (text: string, messageId: string, sourceDocuments: any = null, fileAnnotations: any = null, agentReasoning: IAgentReasoning[] = []) => {
+  const updateLastMessage = (
+    text: string,
+    messageId: string,
+    sourceDocuments: any = null,
+    fileAnnotations: any = null,
+    agentReasoning: IAgentReasoning[] = [],
+  ) => {
     setMessages((data) => {
       const updated = data.map((item, i) => {
         if (i === data.length - 1) {
@@ -311,7 +317,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       addChatMessage(updated);
       return [...updated];
     });
-  }
+  };
 
   const clearPreviews = () => {
     // Revoke the data uris to avoid memory leaks
@@ -572,7 +578,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     socket.on('sourceDocuments', updateLastMessageSourceDocuments);
 
-    socket.on('agentReasoning', updateLastMessageAgentReasoning)
+    socket.on('agentReasoning', updateLastMessageAgentReasoning);
 
     socket.on('token', updateLastMessage);
 
@@ -974,7 +980,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                       </div>
                     )}
                   </>
-                )}}
+                );
+              }}
             </For>
           </div>
           <Show when={messages().length === 1}>
